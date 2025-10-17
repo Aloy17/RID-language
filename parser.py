@@ -1,4 +1,3 @@
-
 class Parser:
     def __init__(self, token):
         self.token = token
@@ -43,13 +42,13 @@ class Parser:
         var_token = self.token[self.position]
 
         if var_token[1] != "IDENTIFIER":
-            raise Exception("Expected identifier after 'LET'")
+            raise SyntaxError(f"Syntax Error: Expected variable name after 'Let', got '{var_token[0]}'")
 
         var_name = var_token[0]
         self.position += 1
 
         if self.token[self.position][1] != "ASSIGN":
-            raise Exception("Expected '=' after identifier")
+            raise SyntaxError(f"Syntax Error: Expected '=' after variable '{var_name}', got '{self.token[self.position][0]}'")
 
         self.position += 1
         expr = self.expression(self.token[self.position])
@@ -62,11 +61,11 @@ class Parser:
         var_name = current_token[0]
 
         if var_name not in self.symbols:
-            raise Exception(f"Variable '{var_name}' not declared")
+            raise NameError(f"Name Error: Variable '{var_name}' is not defined. Use 'Let {var_name} = ...' to declare it first")
 
         self.position += 1
         if self.token[self.position][1] != "ASSIGN":
-            raise Exception("Expected '=' after identifier")
+            raise SyntaxError(f"Syntax Error: Expected '=' after variable '{var_name}', got '{self.token[self.position][0]}'")
 
         self.position += 1
         expr = self.expression(self.token[self.position])
@@ -78,13 +77,13 @@ class Parser:
     def print_stmt(self, current_token):
         self.position += 1
         if self.token[self.position][1] != "LPAREN":
-            raise Exception("Expected '(' after 'OUT'")
+            raise SyntaxError(f"Syntax Error: Expected '(' after 'out', got '{self.token[self.position][0]}'")
         self.position += 1
 
         value = self.expression(self.token[self.position])
 
         if self.token[self.position][1] != "RPAREN":
-            raise Exception("Expected ')' after OUT value")
+            raise SyntaxError(f"Syntax Error: Expected ')' to close 'out' statement, got '{self.token[self.position][0]}'")
         self.position += 1
         self.output.append(f"print({value})")
 
@@ -92,16 +91,16 @@ class Parser:
     def input_stmt(self, current_token):
         self.position += 1
         if self.token[self.position][1] != "IDENTIFIER":
-            raise Exception("Expected variable name after IN")
+            raise SyntaxError(f"Syntax Error: Expected variable name after 'in', got '{self.token[self.position][0]}'")
         var_name = self.token[self.position][0]
 
         if var_name not in self.symbols:
-            raise Exception(f"Variable '{var_name}' not declared. Use 'Let {var_name} = ...' first")
+            raise NameError(f"Name Error: Variable '{var_name}' is not defined. Declare it with 'Let {var_name} = ...' before using 'in'")
 
         self.position += 1
 
         if self.token[self.position][1] != "LPAREN":
-            raise Exception("Expected '(' after variable name")
+            raise SyntaxError(f"Syntax Error: Expected '(' after variable name in 'in' statement, got '{self.token[self.position][0]}'")
 
         self.position += 1
         next_token = self.token[self.position]
@@ -115,18 +114,18 @@ class Parser:
             self.position += 1
 
             if self.token[self.position][1] != "RPAREN":
-                raise Exception("Expected ')' after input prompt")
+                raise SyntaxError(f"Syntax Error: Expected ')' after prompt string in 'in' statement, got '{self.token[self.position][0]}'")
             self.output.append(f"{var_name} = input({prompt})")
             self.position += 1
 
         else:
-            raise Exception("Invalid syntax in input statement")
+            raise SyntaxError(f"Syntax Error: Expected ')' or prompt string in 'in' statement, got '{next_token[0]}'")
 
 
     def loop_stmt(self, current_token):
 
         if current_token[1] != "RUN":
-            raise Exception("Expected 'RUN'")
+            raise SyntaxError(f"Syntax Error: Expected 'Run' keyword, got '{current_token[0]}'")
         self.position += 1
         next_token = self.token[self.position]
 
@@ -135,16 +134,16 @@ class Parser:
             num_token = self.token[self.position]
 
             if num_token[1] != "NUMBER":
-                raise Exception("Expected number inside Run(...)")
+                raise TypeError(f"Type Error: Expected numeric value inside 'Run()', got '{num_token[0]}'")
             loop_template = f"for _ in range({num_token[0]}):"
             self.position += 1
 
             if self.token[self.position][1] != "RPAREN":
-                raise Exception("Expected ')' after loop count")
+                raise SyntaxError(f"Syntax Error: Expected ')' after loop count, got '{self.token[self.position][0]}'")
             self.position += 1
 
             if self.token[self.position][1] != "LBRACE":
-                raise Exception("Expected '{' to start loop block")
+                raise SyntaxError(f"Syntax Error: Expected '{{' to begin loop block, got '{self.token[self.position][0]}'")
             self.position += 1
 
             block_lines = self.block(current_token)
@@ -155,16 +154,16 @@ class Parser:
             self.position += 1
 
             if self.token[self.position][1] != "LPAREN":
-                raise Exception("Expected '(' after 'while'")
+                raise SyntaxError(f"Syntax Error: Expected '(' after 'while', got '{self.token[self.position][0]}'")
             self.position += 1
             cond_str = self.condition(self.token[self.position])
 
             if self.token[self.position][1] != "RPAREN":
-                raise Exception("Expected ')' after condition")
+                raise SyntaxError(f"Syntax Error: Expected ')' after while condition, got '{self.token[self.position][0]}'")
             self.position += 1
 
             if self.token[self.position][1] != "LBRACE":
-                raise Exception("Expected '{' to start loop block")
+                raise SyntaxError(f"Syntax Error: Expected '{{' to begin while loop block, got '{self.token[self.position][0]}'")
             self.position += 1
             block_lines = self.block(current_token)
 
@@ -172,30 +171,30 @@ class Parser:
             self.output.extend(["    " + line for line in block_lines])
 
         else:
-            raise Exception("Expected '(' or 'while' after RUN")
+            raise SyntaxError(f"Syntax Error: Expected '(' or 'while' after 'Run', got '{next_token[0]}'")
 
 
     def conditional_stmt(self, current_token):
 
         keyword = current_token[1]
         if keyword not in ("IF", "ELIF", "ELSE"):
-            raise Exception("Expected IF, ELIF, or ELSE")
+            raise SyntaxError(f"Syntax Error: Expected conditional keyword (agar/ya_fir/warna), got '{current_token[0]}'")
         self.position += 1
 
         cond_str = ""
         if keyword in ("IF", "ELIF"):
 
             if self.token[self.position][1] != "LPAREN":
-                raise Exception("Expected '(' after conditional keyword")
+                raise SyntaxError(f"Syntax Error: Expected '(' after '{current_token[0]}', got '{self.token[self.position][0]}'")
             self.position += 1
             cond_str = self.condition(self.token[self.position])
 
             if self.token[self.position][1] != "RPAREN":
-                raise Exception("Expected ')' after condition")
+                raise SyntaxError(f"Syntax Error: Expected ')' after condition, got '{self.token[self.position][0]}'")
             self.position += 1
 
         if self.token[self.position][1] != "LBRACE":
-            raise Exception("Expected '{' to start block")
+            raise SyntaxError(f"Syntax Error: Expected '{{' to begin conditional block, got '{self.token[self.position][0]}'")
         self.position += 1
         block_lines = self.block(current_token)
 
@@ -215,14 +214,14 @@ class Parser:
     def func_def(self, current_token):
 
         if current_token[1] != "FUNC":
-            raise Exception("Expected 'FUNC'")
+            raise SyntaxError(f"Syntax Error: Expected 'func' keyword, got '{current_token[0]}'")
         self.position += 1
 
         func_name = self.token[self.position][0]
         self.position += 1
 
         if self.token[self.position][1] != "LPAREN":
-            raise Exception("Expected '(' after function name")
+            raise SyntaxError(f"Syntax Error: Expected '(' after function name '{func_name}', got '{self.token[self.position][0]}'")
         self.position += 1
         parameters = []
 
@@ -236,11 +235,11 @@ class Parser:
                 self.position += 1
 
             else:
-                raise Exception("Invalid token in function parameters")
+                raise SyntaxError(f"Syntax Error: Invalid token in function parameters, expected parameter name or ',', got '{self.token[self.position][0]}'")
         self.position += 1
 
         if self.token[self.position][1] != "LBRACE":
-            raise Exception("Expected '{' to start function block")
+            raise SyntaxError(f"Syntax Error: Expected '{{' to begin function body, got '{self.token[self.position][0]}'")
         self.position += 1
         self.current_params = parameters
 
@@ -291,7 +290,7 @@ class Parser:
         op_map = {"EQ": "==", "NEQ": "!=", "LT": "<", "GT": ">", "LTE": "<=", "GTE": ">="}
 
         if op_token[1] not in op_map:
-            raise Exception("Invalid operator in condition")
+            raise SyntaxError(f"Syntax Error: Invalid comparison operator, expected one of (==, !=, <, >, <=, >=), got '{op_token[0]}'")
         op = op_map[op_token[1]]
         self.position += 1
 
@@ -303,11 +302,11 @@ class Parser:
         func_name = current_token[0]
 
         if func_name not in self.functions:
-            raise Exception(f"Function '{func_name}' not defined")
+            raise NameError(f"Name Error: Function '{func_name}' is not defined")
         self.position += 1
 
         if self.token[self.position][1] != "LPAREN":
-            raise Exception("Expected '(' after function name")
+            raise SyntaxError(f"Syntax Error: Expected '(' after function name '{func_name}', got '{self.token[self.position][0]}'")
         self.position += 1
         args = []
 
@@ -325,23 +324,23 @@ class Parser:
                 if arg_token[0] in self.symbols or arg_token[0] in self.current_params:
                     args.append(arg_token[0])
                 else:
-                    raise Exception(f"Variable '{arg_token[0]}' not declared")
+                    raise NameError(f"Name Error: Variable '{arg_token[0]}' is not defined")
 
             else:
-                raise Exception(f"Unsupported argument type: {arg_token[1]}")
+                raise TypeError(f"Type Error: Unsupported argument type '{arg_token[1]}' in function call")
             self.position += 1
 
             if self.position < len(self.token) and self.token[self.position][1] != "RPAREN":
 
                 if self.token[self.position][0] != ",":
-                    raise Exception("Expected ',' between function arguments")
+                    raise SyntaxError(f"Syntax Error: Expected ',' between function arguments, got '{self.token[self.position][0]}'")
                 self.position += 1
 
                 if self.position < len(self.token) and self.token[self.position][1] == "RPAREN":
-                    raise Exception("Trailing comma not allowed in function arguments")
+                    raise SyntaxError(f"Syntax Error: Trailing comma not allowed in function call '{func_name}'")
 
         if self.position >= len(self.token) or self.token[self.position][1] != "RPAREN":
-            raise Exception("Expected ')' after function arguments")
+            raise SyntaxError(f"Syntax Error: Expected ')' to close function call '{func_name}'")
         self.position += 1
         call_str = f"{func_name}({', '.join(args)})"
         self.output.append(call_str)
@@ -350,7 +349,7 @@ class Parser:
     def return_stmt(self, current_token):
 
         if current_token[1] != "RETURN":
-            raise Exception("Error, expected 'give'")
+            raise SyntaxError(f"Syntax Error: Expected 'give' keyword for return statement, got '{current_token[0]}'")
         self.position += 1
 
         expr = self.expression(self.token[self.position])
@@ -388,7 +387,7 @@ class Parser:
     def parse_primary(self):
 
         if self.position >= len(self.token):
-            raise Exception("Unexpected end of expression")
+            raise SyntaxError("Syntax Error: Unexpected end of expression")
 
         current = self.token[self.position]
         value_token, key_token = current
@@ -412,7 +411,7 @@ class Parser:
 
             else:
                 if value_token not in self.symbols and value_token not in self.current_params:
-                    raise Exception(f"Variable '{value_token}' not declared")
+                    raise NameError(f"Name Error: Variable '{value_token}' is not defined")
                 self.position += 1
                 return value_token
 
@@ -421,22 +420,22 @@ class Parser:
             expr = self.parse_additive()
 
             if self.position >= len(self.token) or self.token[self.position][1] != "RPAREN":
-                raise Exception("Expected ')' after expression")
+                raise SyntaxError("Syntax Error: Expected ')' to close expression")
             self.position += 1
             return f"({expr})"
 
         else:
-            raise Exception(f"Unexpected token in expression: {key_token}")
+            raise SyntaxError(f"Syntax Error: Unexpected token '{value_token}' in expression")
 
     def parse_function_call(self):
         func_name = self.token[self.position][0]
 
         if func_name not in self.functions:
-            raise Exception(f"Function '{func_name}' not defined")
+            raise NameError(f"Name Error: Function '{func_name}' is not defined")
         self.position += 1
 
         if self.token[self.position][1] != "LPAREN":
-            raise Exception("Expected '(' after function name")
+            raise SyntaxError(f"Syntax Error: Expected '(' after function name '{func_name}', got '{self.token[self.position][0]}'")
         self.position += 1
 
         args = []
@@ -447,25 +446,17 @@ class Parser:
 
             if self.position < len(self.token) and self.token[self.position][1] != "RPAREN":
                 if self.token[self.position][0] != ",":
-                    raise Exception("Expected ',' between function arguments")
+                    raise SyntaxError(f"Syntax Error: Expected ',' between function arguments in '{func_name}', got '{self.token[self.position][0]}'")
                 self.position += 1
                 if self.position < len(self.token) and self.token[self.position][1] == "RPAREN":
-                    raise Exception("Trailing comma not allowed in function arguments")
+                    raise SyntaxError(f"Syntax Error: Trailing comma not allowed in function call '{func_name}'")
 
         if self.position >= len(self.token) or self.token[self.position][1] != "RPAREN":
-            raise Exception("Expected ')' after function arguments")
+            raise SyntaxError(f"Syntax Error: Expected ')' to close function call '{func_name}'")
         self.position += 1
 
         return f"{func_name}({', '.join(args)})"
 
 
     def unknown_token(self, current_token):
-        raise Exception(f"Unknown token {current_token}")
-
-
-#Test
-token = [('Let', 'LET'), ('num', 'IDENTIFIER'), ('=', 'ASSIGN'), ('5', 'NUMBER')]
-
-parser = Parser(token)
-parser.parse()
-print(parser.output)
+        raise SyntaxError(f"Syntax Error: Unexpected token '{current_token[0]}' of type '{current_token[1]}'")
