@@ -91,6 +91,10 @@ class Parser:
         self.position += 1
         self.output.append(f"print({value}, end='')")
 
+    def newline_stmt(self, current_token):
+        self.position += 1
+        self.output.append("print()")
+
     def input_stmt(self, current_token):
         self.position += 1
         if self.token[self.position][1] != "IDENTIFIER":
@@ -233,7 +237,7 @@ class Parser:
             if self.token[self.position][1] == "IDENTIFIER":
                 parameters.append(self.token[self.position][0])
                 self.position += 1
-            elif self.token[self.position][0] == ",":
+            elif self.token[self.position][1] == "COMMA":
                 self.position += 1
             else:
                 raise SyntaxError(
@@ -317,52 +321,27 @@ class Parser:
         if func_name not in self.functions:
             raise NameError(f"Name Error: Function '{func_name}' is not defined")
 
-        start_pos = self.position
         self.position += 1
 
         if self.position >= len(self.token) or self.token[self.position][1] != "LPAREN":
             raise SyntaxError(
                 f"Syntax Error: Expected '(' after function name '{func_name}', got '{self.token[self.position][0]}'")
-
         self.position += 1
 
         args = []
-        paren_depth = 1
 
-        while self.position < len(self.token) and paren_depth > 0:
-            current_token = self.token[self.position]
+        while self.position < len(self.token) and self.token[self.position][1] != "RPAREN":
+            arg_expr = self.expression()
+            args.append(arg_expr)
 
-            if current_token[1] == "LPAREN":
-                paren_depth += 1
+            if self.position < len(self.token) and self.token[self.position][1] == "COMMA":
                 self.position += 1
-            elif current_token[1] == "RPAREN":
-                paren_depth -= 1
-                if paren_depth == 0:
-                    break
-                self.position += 1
-            elif current_token[0] == "," and paren_depth == 1:
-                self.position += 1
-            else:
-                arg_start = self.position
-                while self.position < len(self.token):
-                    token_type = self.token[self.position][1]
-                    if (token_type == "RPAREN" and paren_depth == 1) or (token_type == "COMMA" and paren_depth == 1):
-                        break
-                    elif token_type == "LPAREN":
-                        paren_depth += 1
-                    elif token_type == "RPAREN":
-                        paren_depth -= 1
-                    self.position += 1
-
-                saved_pos = self.position
-                self.position = arg_start
-                arg_expr = self.expression()
-                self.position = saved_pos
-                args.append(arg_expr)
+            elif self.position < len(self.token) and self.token[self.position][1] != "RPAREN":
+                raise SyntaxError(
+                    f"Syntax Error: Expected ',' or ')' in function call '{func_name}', got '{self.token[self.position][0]}'")
 
         if self.position >= len(self.token) or self.token[self.position][1] != "RPAREN":
             raise SyntaxError(f"Syntax Error: Expected ')' to close function call '{func_name}'")
-
         self.position += 1
 
         call_str = f"{func_name}({', '.join(args)})"
@@ -417,17 +396,15 @@ class Parser:
             self.position += 1
             if self.position >= len(self.token):
                 raise SyntaxError("Syntax Error: Expected expression after '-'")
-            
+
             next_token = self.token[self.position]
-            # If it's just a number, create a clean negative number
             if next_token[1] == "NUMBER":
                 self.position += 1
                 return f"-{next_token[0]}"
             else:
-                # For complex expressions, still use parentheses
                 expr = self.parse_primary()
                 return f"-({expr})"
-                return f"-({expr})"
+
         if key_token == "NUMBER":
             self.position += 1
             return value_token
@@ -469,60 +446,30 @@ class Parser:
         if func_name not in self.functions:
             raise NameError(f"Name Error: Function '{func_name}' is not defined")
 
-        start_pos = self.position
         self.position += 1
 
         if self.position >= len(self.token) or self.token[self.position][1] != "LPAREN":
             raise SyntaxError(
                 f"Syntax Error: Expected '(' after function name '{func_name}', got '{self.token[self.position][0]}'")
-
         self.position += 1
 
         args = []
-        paren_depth = 1
 
-        while self.position < len(self.token) and paren_depth > 0:
-            current_token = self.token[self.position]
+        while self.position < len(self.token) and self.token[self.position][1] != "RPAREN":
+            arg_expr = self.expression()
+            args.append(arg_expr)
 
-            if current_token[1] == "LPAREN":
-                paren_depth += 1
+            if self.position < len(self.token) and self.token[self.position][1] == "COMMA":
                 self.position += 1
-            elif current_token[1] == "RPAREN":
-                paren_depth -= 1
-                if paren_depth == 0:
-                    break
-                self.position += 1
-            elif current_token[0] == "," and paren_depth == 1:
-                self.position += 1
-            else:
-                arg_start = self.position
-                while self.position < len(self.token):
-                    token_type = self.token[self.position][1]
-                    if (token_type == "RPAREN" and paren_depth == 1) or (token_type == "COMMA" and paren_depth == 1):
-                        break
-                    elif token_type == "LPAREN":
-                        paren_depth += 1
-                    elif token_type == "RPAREN":
-                        paren_depth -= 1
-                    self.position += 1
-
-                saved_pos = self.position
-                self.position = arg_start
-                arg_expr = self.expression()
-                self.position = saved_pos
-                args.append(arg_expr)
+            elif self.position < len(self.token) and self.token[self.position][1] != "RPAREN":
+                raise SyntaxError(
+                    f"Syntax Error: Expected ',' or ')' in function call '{func_name}', got '{self.token[self.position][0]}'")
 
         if self.position >= len(self.token) or self.token[self.position][1] != "RPAREN":
             raise SyntaxError(f"Syntax Error: Expected ')' to close function call '{func_name}'")
-
         self.position += 1
 
         return f"{func_name}({', '.join(args)})"
 
     def unknown_token(self, current_token):
         raise SyntaxError(f"Syntax Error: Unexpected token '{current_token[0]}' of type '{current_token[1]}'")
-
-    def newline_stmt(self, current_token):
-        self.position += 1
-        self.output.append("print()")
-
