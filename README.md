@@ -60,6 +60,11 @@ x = 20  ~ Reassigning ~
 ```rid
 out("Hello!")
 out(x)
+out("World")
+line
+```
+
+The `out()` function prints without adding a newline, so use `line` to add a newline when needed.
 ```
 
 ### Input
@@ -132,6 +137,7 @@ python main.py myprogram.rid output.py
 |---------|---------|---------|
 | `Let` | Declare variable | `Let x = 10` |
 | `out` | Print output | `out("Hello")` |
+| `line` | Print newline | `line` |
 | `in` | Get input | `name = in()` |
 | `Run` | Loop | `Run(5) { }` |
 | `while` | While loop | `Run while(x < 10) { }` |
