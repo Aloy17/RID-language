@@ -1,0 +1,40 @@
+~ Conditional Statements Demo ~
+~ Shows agar, ya_fir, and warna ~
+
+Let age = 20
+
+out("Age Grade System:")
+
+agar(age >= 18) {
+    out("You are an adult")
+}
+ya_fir(age >= 13) {
+    out("You are a teenager")
+}
+warna {
+    out("You are a child")
+}
+
+~ Grade calculator ~
+Let score = 85
+
+out("")
+out("Grade Calculator:")
+out("Your score: ")
+out(score)
+
+agar(score >= 90) {
+    out("Grade: A - Excellent!")
+}
+ya_fir(score >= 80) {
+    out("Grade: B - Good job!")
+}
+ya_fir(score >= 70) {
+    out("Grade: C - Satisfactory")
+}
+ya_fir(score >= 60) {
+    out("Grade: D - Needs improvement")
+}
+warna {
+    out("Grade: F - Failed")
+}

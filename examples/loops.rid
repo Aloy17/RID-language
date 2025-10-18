@@ -1,0 +1,33 @@
+~ Loop Examples ~
+~ Demonstrates Run and Run while ~
+
+out("Fixed-count loop example:")
+out("Printing 'Hello' 5 times:")
+
+Run(5) {
+    out("Hello!")
+}
+
+out("")
+out("While loop example:")
+out("Counting from 1 to 5:")
+
+Let counter = 1
+Run while(counter <= 5) {
+    out(counter)
+    counter = counter + 1
+}
+
+out("")
+out("Sum of numbers 1 to 10:")
+
+Let sum = 0
+Let i = 1
+
+Run while(i <= 10) {
+    sum = sum + i
+    i = i + 1
+}
+
+out("Sum = ")
+out(sum)

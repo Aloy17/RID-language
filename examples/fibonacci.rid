@@ -1,0 +1,18 @@
+~ Fibonacci Sequence Generator ~
+~ Prints first 10 Fibonacci numbers ~
+
+Let a = 0
+Let b = 1
+Let count = 0
+
+out("Fibonacci Sequence:")
+
+Run while(count < 10) {
+    out(a)
+
+    Let temp = a + b
+    a = b
+    b = temp
+
+    count = count + 1
+}

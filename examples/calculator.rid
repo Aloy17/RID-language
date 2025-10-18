@@ -1,0 +1,26 @@
+~ Simple Calculator ~
+~ Demonstrates arithmetic operations ~
+
+Let a = 10
+Let b = 3
+
+out("Number 1: ")
+out(a)
+out("Number 2: ")
+out(b)
+out("")
+
+out("Addition: ")
+out(a + b)
+
+out("Subtraction: ")
+out(a - b)
+
+out("Multiplication: ")
+out(a * b)
+
+out("Division: ")
+out(a / b)
+
+out("Modulo: ")
+out(a % b)

@@ -1,0 +1,27 @@
+~ Number Guessing Game ~
+~ Try to guess the secret number! ~
+
+Let secret = 42
+Let guess = ""
+Let attempts = 0
+
+out("Welcome to the Guessing Game!")
+out("I'm thinking of a number between 1 and 100")
+
+guess = in("Enter your guess: ")
+attempts = attempts + 1
+
+agar(guess == secret) {
+    out("Congratulations! You guessed it!")
+    out("It took you ")
+    out(attempts)
+    out(" attempt(s)")
+}
+ya_fir(guess < secret) {
+    out("Too low! The answer was ")
+    out(secret)
+}
+warna {
+    out("Too high! The answer was ")
+    out(secret)
+}

@@ -1,0 +1,5 @@
+~ Hello World Program ~
+~ This is the simplest RID program ~
+
+out("Hello, World!")
+out("Welcome to RID Programming Language!")

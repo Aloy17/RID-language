@@ -1,0 +1,27 @@
+~ Factorial Calculator Using Recursion ~
+
+func factorial(n) {
+    agar(n <= 1) {
+        give 1
+    }
+    warna {
+        give n * factorial(n - 1)
+    }
+}
+
+Let num = 5
+Let result = factorial(num)
+
+out("Factorial of ")
+out(num)
+out(" is ")
+out(result)
+
+~ Calculate another ~
+Let num2 = 7
+Let result2 = factorial(num2)
+
+out("Factorial of ")
+out(num2)
+out(" is ")
+out(result2)

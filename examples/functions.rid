@@ -1,0 +1,54 @@
+~ Function Examples ~
+~ Shows function definition and calling ~
+
+~ Simple addition function ~
+func add(a, b) {
+    give a + b
+}
+
+~ Multiplication function ~
+func multiply(x, y) {
+    give x * y
+}
+
+~ Power function ~
+func power(base, exp) {
+    Let result = 1
+    Let count = 0
+
+    Run while(count < exp) {
+        result = result * base
+        count = count + 1
+    }
+
+    give result
+}
+
+~ Maximum of two numbers ~
+func max(a, b) {
+    agar(a > b) {
+        give a
+    }
+    warna {
+        give b
+    }
+}
+
+out("Function Examples:")
+out("")
+
+Let sum = add(10, 5)
+out("10 + 5 = ")
+out(sum)
+
+Let product = multiply(4, 7)
+out("4 * 7 = ")
+out(product)
+
+Let pow = power(2, 3)
+out("2 ^ 3 = ")
+out(pow)
+
+Let maximum = max(15, 23)
+out("Max of 15 and 23 = ")
+out(maximum)
