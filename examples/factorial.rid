@@ -1,12 +1,15 @@
-~ Factorial Calculator Using Recursion ~
+~ Factorial Calculator Using Iteration ~
 
 func factorial(n) {
-    agar(n <= 1) {
-        give 1
+    Let result = 1
+    Let counter = 1
+
+    Run while(counter <= n) {
+        result = result * counter
+        counter = counter + 1
     }
-    warna {
-        give n * factorial(n - 1)
-    }
+
+    give result
 }
 
 Let num = 5
@@ -18,10 +21,19 @@ out(" is ")
 out(result)
 
 ~ Calculate another ~
-Let num2 = 7
-Let result2 = factorial(num2)
+Let number = 7
+Let answer = factorial(number)
 
 out("Factorial of ")
-out(num2)
+out(number)
 out(" is ")
-out(result2)
+out(answer)
+
+~ One more example ~
+Let value = 10
+Let output = factorial(value)
+
+out("Factorial of ")
+out(value)
+out(" is ")
+out(output)
