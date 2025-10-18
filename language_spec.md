@@ -7,13 +7,16 @@ statement      → var_decl
                | loop_stmt
                | conditional_stmt
                | func_def
-               | func_call ;
+               | func_call
+               | newline_stmt ;
 
 var_decl       → "Let" IDENTIFIER "=" expression ;
 
 assignment     → IDENTIFIER "=" expression ;
 
 print_stmt     → "out" "(" expression ")" ;
+
+newline_stmt   → "line" ;
 
 input_stmt     → IDENTIFIER "=" "in" "("? STRING? ")"? ;
 
