@@ -181,17 +181,6 @@ MIT License - feel free to use this project for learning and development.
 
 Created as a learning project to explore compiler design and language development.
 
-## Roadmap
-
-Future features planned:
-- [ ] Lists and arrays
-- [ ] More operators (and, or, not)
-- [ ] String manipulation functions
-- [ ] File I/O
-- [ ] Standard library
-- [ ] REPL (interactive mode)
-- [ ] Better error messages
-
 ---
 
 **Questions?** Open an issue on GitHub!
