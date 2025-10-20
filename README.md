@@ -269,6 +269,7 @@ Let x = 10  ~ Inline comments work too ~
 
 Check the `examples/` folder in this repository for complete working programs:
 
+- **comprehensive_test.rid** - Complete test of ALL RID features (recommended to run first!)
 - **hello_world.rid** - Basic output
 - **calculator.rid** - Arithmetic operations
 - **conditionals.rid** - If/elif/else examples
@@ -277,7 +278,6 @@ Check the `examples/` folder in this repository for complete working programs:
 - **fibonacci.rid** - Fibonacci sequence generator
 - **factorial.rid** - Factorial with recursion
 - **guess_the_number.rid** - Interactive guessing game
-- **type_conversion_test.rid** - Type conversion examples
 
 Open any example in RIDLEY IDE and click Run to see it in action!
 

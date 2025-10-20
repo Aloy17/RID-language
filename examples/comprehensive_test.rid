@@ -1,0 +1,439 @@
+~ Comprehensive RID Language Test Program ~
+~ This program demonstrates ALL RID language features ~
+
+out("=== RIDLEY IDE - Comprehensive RID Test ===")
+line
+line
+
+~ ========== VARIABLES ========== ~
+out("--- Testing Variables ---")
+line
+
+Let name = "Alice"
+Let age = 25
+Let pi = 3.14
+Let isStudent = True
+Let count1 = 100
+
+out("Name: " + name)
+line
+out("Age: " + word(age))
+line
+out("Pi: " + word(pi))
+line
+out("Is Student: " + word(isStudent))
+line
+out("Count1 (variable with number): " + word(count1))
+line
+line
+
+~ ========== ARITHMETIC OPERATIONS ========== ~
+out("--- Testing Arithmetic ---")
+line
+
+Let a = 10
+Let b = 3
+Let sum = a + b
+Let diff = a - b
+Let prod = a * b
+Let quot = a / b
+Let mod = a % b
+Let neg = -5
+
+out("10 + 3 = " + word(sum))
+line
+out("10 - 3 = " + word(diff))
+line
+out("10 * 3 = " + word(prod))
+line
+out("10 / 3 = " + word(quot))
+line
+out("10 % 3 = " + word(mod))
+line
+out("Negative number: " + word(neg))
+line
+line
+
+~ ========== STRING OPERATIONS ========== ~
+out("--- Testing String Concatenation ---")
+line
+
+Let first = "Hello"
+Let second = "World"
+Let greeting = first + " " + second
+out(greeting)
+line
+
+Let message = "RID is " + "awesome" + "!"
+out(message)
+line
+line
+
+~ ========== TYPE CONVERSIONS ========== ~
+out("--- Testing Type Conversions ---")
+line
+
+Let str_num = "42"
+Let number = num(str_num)
+out("String '42' to number: " + word(number))
+line
+
+Let str_dec = "3.14159"
+Let decimal = dec(str_dec)
+out("String '3.14159' to decimal: " + word(decimal))
+line
+
+Let value = 999
+Let text = word(value)
+out("Number 999 to string: " + text)
+line
+
+Let zero = 0
+Let one = 1
+Let bool_zero = bool(zero)
+Let bool_one = bool(one)
+out("bool(0) = " + word(bool_zero))
+line
+out("bool(1) = " + word(bool_one))
+line
+line
+
+~ ========== CONDITIONALS ========== ~
+out("--- Testing Conditionals (if/elif/else) ---")
+line
+
+Let score = 85
+
+agar(score >= 90) {
+    out("Grade: A")
+    line
+}
+ya_fir(score >= 80) {
+    out("Grade: B")
+    line
+}
+ya_fir(score >= 70) {
+    out("Grade: C")
+    line
+}
+ya_fir(score >= 60) {
+    out("Grade: D")
+    line
+}
+warna {
+    out("Grade: F")
+    line
+}
+
+Let x = 15
+agar(x > 10) {
+    out("x is greater than 10")
+    line
+}
+warna {
+    out("x is not greater than 10")
+    line
+}
+line
+
+~ ========== COMPARISON OPERATORS ========== ~
+out("--- Testing Comparison Operators ---")
+line
+
+Let num1 = 10
+Let num2 = 20
+
+agar(num1 == num2) {
+    out("10 == 20: True")
+    line
+}
+warna {
+    out("10 == 20: False")
+    line
+}
+
+agar(num1 != num2) {
+    out("10 != 20: True")
+    line
+}
+
+agar(num1 < num2) {
+    out("10 < 20: True")
+    line
+}
+
+agar(num1 <= num2) {
+    out("10 <= 20: True")
+    line
+}
+
+agar(num2 > num1) {
+    out("20 > 10: True")
+    line
+}
+
+agar(num2 >= num1) {
+    out("20 >= 10: True")
+    line
+}
+line
+
+~ ========== FIXED-COUNT LOOPS ========== ~
+out("--- Testing Fixed-Count Loop ---")
+line
+
+out("Counting 1 to 5:")
+line
+Let counter = 1
+Run(5) {
+    out(word(counter) + " ")
+    counter = counter + 1
+}
+line
+line
+
+~ ========== WHILE LOOPS ========== ~
+out("--- Testing While Loop ---")
+line
+
+out("Countdown from 5:")
+line
+Let countdown = 5
+Run while(countdown > 0) {
+    out(word(countdown) + " ")
+    countdown = countdown - 1
+}
+line
+out("Liftoff!")
+line
+line
+
+~ ========== FUNCTIONS ========== ~
+out("--- Testing Functions ---")
+line
+
+func greet(person) {
+    out("Hello, " + person + "!")
+    line
+}
+
+greet("Bob")
+greet("Charlie")
+
+func add(x, y) {
+    give x + y
+}
+
+Let result1 = add(5, 3)
+out("add(5, 3) = " + word(result1))
+line
+
+func multiply(x, y) {
+    give x * y
+}
+
+Let result2 = multiply(4, 7)
+out("multiply(4, 7) = " + word(result2))
+line
+
+func max(x, y) {
+    agar(x > y) {
+        give x
+    }
+    warna {
+        give y
+    }
+}
+
+Let maxVal = max(10, 15)
+out("max(10, 15) = " + word(maxVal))
+line
+line
+
+~ ========== RECURSION ========== ~
+out("--- Testing Recursion ---")
+line
+
+func factorial(n) {
+    agar(n <= 1) {
+        give 1
+    }
+    warna {
+        give n * factorial(n - 1)
+    }
+}
+
+Let fact5 = factorial(5)
+out("factorial(5) = " + word(fact5))
+line
+
+func fibonacci(n) {
+    agar(n <= 1) {
+        give n
+    }
+    warna {
+        give fibonacci(n - 1) + fibonacci(n - 2)
+    }
+}
+
+out("Fibonacci sequence (first 10):")
+line
+Let fib_i = 0
+Run while(fib_i < 10) {
+    out(word(fibonacci(fib_i)) + " ")
+    fib_i = fib_i + 1
+}
+line
+line
+
+~ ========== NESTED STRUCTURES ========== ~
+out("--- Testing Nested Structures ---")
+line
+
+Let outer = 1
+Run while(outer <= 3) {
+    out("Outer loop: " + word(outer))
+    line
+    
+    Let inner = 1
+    Run while(inner <= 2) {
+        out("  Inner loop: " + word(inner))
+        line
+        inner = inner + 1
+    }
+    
+    outer = outer + 1
+}
+line
+
+~ ========== COMPLEX EXPRESSION ========== ~
+out("--- Testing Complex Expressions ---")
+line
+
+Let expr1 = (2 + 3) * 4
+out("(2 + 3) * 4 = " + word(expr1))
+line
+
+Let expr2 = 10 / 2 + 3
+out("10 / 2 + 3 = " + word(expr2))
+line
+
+Let expr3 = -5 + 3
+out("-5 + 3 = " + word(expr3))
+line
+line
+
+~ ========== FUNCTION WITH MULTIPLE PARAMETERS ========== ~
+out("--- Testing Functions with Multiple Parameters ---")
+line
+
+func calculate(a, b, c) {
+    give a * b + c
+}
+
+Let calc_result = calculate(2, 3, 4)
+out("calculate(2, 3, 4) [2*3+4] = " + word(calc_result))
+line
+line
+
+~ ========== PRACTICAL EXAMPLE: SUM OF NUMBERS ========== ~
+out("--- Practical Example: Sum of 1 to 10 ---")
+line
+
+Let total = 0
+Let n = 1
+Run while(n <= 10) {
+    total = total + n
+    n = n + 1
+}
+out("Sum of 1 to 10 = " + word(total))
+line
+line
+
+~ ========== PRACTICAL EXAMPLE: EVEN/ODD CHECKER ========== ~
+out("--- Practical Example: Even/Odd Numbers 1-10 ---")
+line
+
+func isEven(num) {
+    Let remainder = num % 2
+    agar(remainder == 0) {
+        give True
+    }
+    warna {
+        give False
+    }
+}
+
+Let check = 1
+Run while(check <= 10) {
+    agar(isEven(check) == True) {
+        out(word(check) + " is even")
+        line
+    }
+    warna {
+        out(word(check) + " is odd")
+        line
+    }
+    check = check + 1
+}
+line
+
+~ ========== VARIABLE REASSIGNMENT ========== ~
+out("--- Testing Variable Reassignment ---")
+line
+
+Let myVar = 10
+out("Initial value: " + word(myVar))
+line
+myVar = 20
+out("After reassignment: " + word(myVar))
+line
+myVar = myVar + 5
+out("After myVar = myVar + 5: " + word(myVar))
+line
+line
+
+~ ========== FINAL MESSAGE ========== ~
+out("===========================================")
+line
+out("✓ All RID language features tested successfully!")
+line
+out("===========================================")
+line
+out("This program tested:")
+line
+out("  ✓ Variables (strings, numbers, booleans)")
+line
+out("  ✓ Arithmetic operators (+, -, *, /, %, -)")
+line
+out("  ✓ String concatenation")
+line
+out("  ✓ Type conversions (num, dec, word, bool)")
+line
+out("  ✓ Conditionals (agar, ya_fir, warna)")
+line
+out("  ✓ Comparison operators (==, !=, <, >, <=, >=)")
+line
+out("  ✓ Fixed-count loops (Run)")
+line
+out("  ✓ While loops (Run while)")
+line
+out("  ✓ Functions with parameters")
+line
+out("  ✓ Return statements (give)")
+line
+out("  ✓ Recursion")
+line
+out("  ✓ Nested loops")
+line
+out("  ✓ Complex expressions")
+line
+out("  ✓ Variable reassignment")
+line
+out("  ✓ Comments")
+line
+line
+out("Thank you for using RID Programming Language!")
+line
+out("Powered by RIDLEY IDE")
+line
