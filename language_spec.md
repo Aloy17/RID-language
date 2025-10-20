@@ -1,6 +1,6 @@
 # RID Language Specification
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Author:** Ryane Bose  
 **Last Updated:** October 2025
 
@@ -50,6 +50,10 @@ func     - Function definition
 give     - Return statement
 True     - Boolean literal
 False    - Boolean literal
+num      - Convert to integer
+dec      - Convert to decimal/float
+word     - Convert to string
+bool     - Convert to boolean
 ```
 
 ### Operators
@@ -251,9 +255,40 @@ primary        → NUMBER
                | IDENTIFIER
                | "(" expression ")"
                | func_call
+               | type_conversion
+               
+type_conversion → ("num"|"dec"|"word"|"bool") "(" expression ")"
 ```
 
-**Examples:**
+**Type Conversion Examples:**
+```rid
+~ Convert string to integer ~
+Let str_num = "42"
+Let number = num(str_num)     ~ 42 (as integer) ~
+
+~ Convert string to decimal ~
+Let str_dec = "3.14"
+Let decimal = dec(str_dec)    ~ 3.14 (as float) ~
+
+~ Convert number to string ~
+Let value = 100
+Let text = word(value)        ~ "100" (as string) ~
+
+~ Convert to boolean ~
+Let zero = 0
+Let one = 1
+Let bool_zero = bool(zero)    ~ False ~
+Let bool_one = bool(one)      ~ True ~
+
+~ Useful with user input ~
+Let input = ""
+input = in("Enter a number: ")
+Let squared = num(input) * num(input)
+out(squared)
+line
+```
+
+**Standard Examples:**
 ```rid
 5 + 3           ~ 8 ~
 10 - 4          ~ 6 ~

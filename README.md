@@ -16,6 +16,7 @@ RID is a custom programming language that makes coding more accessible by using 
 - Conditionals (if/elif/else)
 - String concatenation
 - Negative numbers
+- **Type conversion functions** (`num()`, `dec()`, `word()`, `bool()`)
 - Transpiles to Python for fast execution
 - Clear error messages to help you learn
 
@@ -98,6 +99,38 @@ Let first = "Hello"
 Let second = "World"
 Let greeting = first + " " + second  ~ String concatenation ~
 out(greeting)  ~ Prints: Hello World ~
+```
+
+### Type Conversions
+```rid
+~ Convert string to number ~
+Let str_num = "42"
+Let number = num(str_num)
+out(number)  ~ Prints: 42 ~
+
+~ Convert to decimal/float ~
+Let str_dec = "3.14"
+Let decimal = dec(str_dec)
+out(decimal)  ~ Prints: 3.14 ~
+
+~ Convert to string ~
+Let value = 100
+Let text = word(value)
+out(text)  ~ Prints: 100 ~
+
+~ Convert to boolean ~
+Let zero = 0
+Let one = 1
+out(bool(zero))  ~ Prints: False ~
+out(bool(one))   ~ Prints: True ~
+
+~ Useful with user input ~
+Let user_input = ""
+in user_input("Enter a number: ")
+Let squared = num(user_input) * num(user_input)
+out("Result: ")
+out(squared)
+line
 ```
 
 ### If-Else (Conditionals)
@@ -203,6 +236,10 @@ The transpiled Python code is saved to the output file and executed immediately.
 | `give` | Return from function | `give x + y` |
 | `True` | Boolean true | `Let flag = True` |
 | `False` | Boolean false | `Let flag = False` |
+| `num` | Convert to integer | `num("42")` |
+| `dec` | Convert to decimal | `dec("3.14")` |
+| `word` | Convert to string | `word(100)` |
+| `bool` | Convert to boolean | `bool(1)` |
 
 ## Operators
 
@@ -232,6 +269,7 @@ Check the `examples/` folder for complete working programs:
 - **fibonacci.rid** - Fibonacci sequence generator
 - **factorial.rid** - Factorial with recursion
 - **guess_the_number.rid** - Interactive guessing game
+- **type_conversion_test.rid** - Type conversion examples
 
 Run any example:
 ```bash
@@ -281,7 +319,6 @@ RID Code → Lexer → Tokens → Parser → Python Code → Execute
 - No arrays/lists yet
 - No logical operators (`and`, `or`, `not`) yet
 - No `break`/`continue` in loops
-- Input always returns strings (no automatic type conversion)
 - No import/module system
 
 ## License

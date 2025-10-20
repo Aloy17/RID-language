@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+- **Type conversion functions**: `num()`, `dec()`, `word()`, `bool()`
+  - `num()` converts values to integers (Python's `int()`)
+  - `dec()` converts values to decimals (Python's `float()`)
+  - `word()` converts values to strings (Python's `str()`)
+  - `bool()` converts values to booleans (Python's `bool()`)
+- **Comma delimiter** support for cleaner syntax
+- Comprehensive test suite (`test_lexer_parser.py`) for validating lexer and parser functionality
+- Example program demonstrating type conversions (`type_conversion_test.rid`)
+
+---
+
 ## [1.0.0] - 2025-10-18
 
 ### Initial Release
@@ -80,7 +94,6 @@ This is the first stable release of RID Programming Language.
 - No arrays/lists
 - No logical operators (`and`, `or`, `not`)
 - No `break`/`continue` in loops
-- Input always returns strings
 - No multiline strings
 - No import/module system
 - No exception handling
@@ -93,7 +106,6 @@ Potential features for future versions:
 - [ ] Arrays and list support
 - [ ] Logical operators
 - [ ] Loop control statements (break/continue)
-- [ ] Type conversion functions
 - [ ] File I/O operations
 - [ ] Standard library
 - [ ] Interactive REPL mode

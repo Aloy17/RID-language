@@ -95,76 +95,57 @@ python main.py examples/factorial.rid
 
 ---
 
-### 8. guessing_game.rid
+### 8. guess_the_number.rid
 **Difficulty:** Intermediate  
 **Concepts:** Input, conditionals, variables  
 **Description:** Interactive number guessing game with user input.
 
 ```bash
-python main.py examples/guessing_game.rid
+python main.py examples/guess_the_number.rid
 ```
+
+---
+
+### 9. type_conversion_test.rid
+**Difficulty:** Intermediate  
+**Concepts:** Type conversions (num, dec, word, bool), input, expressions  
+**Description:** Demonstrates all type conversion functions with practical examples.
+
+```bash
+python main.py examples/type_conversion_test.rid
+```
+
+**Features demonstrated:**
+- `num()` - Convert strings to integers
+- `dec()` - Convert to decimal/float values
+- `word()` - Convert numbers to strings
+- `bool()` - Convert values to boolean
+- Using conversions with user input
+- Type conversions in arithmetic expressions
 
 ---
 
 ## Learning Path
 
-If you're new to RID, we recommend following this order:
+**Recommended order for beginners:**
 
-1. **hello_world.rid** - Get familiar with output
-2. **calculator.rid** - Learn variables and operators
-3. **conditionals.rid** - Understand decision making
-4. **loops.rid** - Master repetition
-5. **functions.rid** - Write reusable code
-6. **fibonacci.rid** - Apply loops to algorithms
-7. **factorial.rid** - Explore recursion
-8. **guessing_game.rid** - Build interactive programs
+1. Start with `hello_world.rid` to understand output
+2. Try `calculator.rid` for variables and arithmetic
+3. Learn `conditionals.rid` for decision making
+4. Practice `loops.rid` for iteration
+5. Move to `functions.rid` for code organization
+6. Challenge yourself with `fibonacci.rid` and `factorial.rid`
+7. Explore `type_conversion_test.rid` for working with different data types
+8. Build something fun with `guess_the_number.rid`
 
-## Example Output
+## Creating Your Own Programs
 
-### hello_world.rid
-```
-Hello, World!
-Welcome to RID Programming Language!
-```
+Use these examples as templates for your own RID programs. Key tips:
 
-### calculator.rid
-```
-Number 1: 10
-Number 2: 3
+- Always declare variables with `Let` before use
+- Use `line` to print newlines after `out()` statements
+- Remember Hindi-inspired keywords: `agar`, `ya_fir`, `warna`
+- Use type conversion functions when working with user input
+- Functions must use `give` to return values
 
-Addition: 13
-Subtraction: 7
-Multiplication: 30
-Division: 3.3333333333333335
-Modulo: 1
-```
-
-### fibonacci.rid
-```
-Fibonacci Sequence:
-0
-1
-1
-2
-3
-5
-8
-13
-21
-34
-```
-
-## Tips
-
-- Read the comments in each file (between `~` symbols)
-- Try modifying the values and see what happens
-- Experiment by combining concepts from different examples
-- If you get an error, read the error message carefully - RID provides helpful hints!
-
-## Contributing
-
-Have a cool example to share? Feel free to submit a pull request!
-
----
-
-**Happy Coding with RID! 🚀**
+Happy coding in RID!
