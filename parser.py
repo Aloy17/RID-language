@@ -10,7 +10,6 @@ class Parser:
             "LET": self.var_declare,
             "IDENTIFIER": self.assignment,
             "OUT": self.print_stmt,
-            "IN": self.input_stmt,
             "RUN": self.loop_stmt,
             "IF": self.conditional_stmt,
             "ELIF": self.conditional_stmt,
@@ -94,42 +93,6 @@ class Parser:
     def newline_stmt(self, current_token):
         self.position += 1
         self.output.append("print()")
-
-    def input_stmt(self, current_token):
-        self.position += 1
-        if self.token[self.position][1] != "IDENTIFIER":
-            raise SyntaxError(f"Syntax Error: Expected variable name after 'in', got '{self.token[self.position][0]}'")
-        var_name = self.token[self.position][0]
-
-        if var_name not in self.symbols:
-            raise NameError(
-                f"Name Error: Variable '{var_name}' is not defined. Declare it with 'Let {var_name} = ...' before using 'in'")
-
-        self.position += 1
-
-        if self.token[self.position][1] != "LPAREN":
-            raise SyntaxError(
-                f"Syntax Error: Expected '(' after variable name in 'in' statement, got '{self.token[self.position][0]}'")
-
-        self.position += 1
-        next_token = self.token[self.position]
-
-        if next_token[1] == "RPAREN":
-            self.output.append(f"{var_name} = input()")
-            self.position += 1
-
-        elif next_token[1] == "STRING":
-            prompt = f'"{next_token[0]}"'
-            self.position += 1
-
-            if self.token[self.position][1] != "RPAREN":
-                raise SyntaxError(
-                    f"Syntax Error: Expected ')' after prompt string in 'in' statement, got '{self.token[self.position][0]}'")
-            self.output.append(f"{var_name} = input({prompt})")
-            self.position += 1
-
-        else:
-            raise SyntaxError(f"Syntax Error: Expected ')' or prompt string in 'in' statement, got '{next_token[0]}'")
 
     def loop_stmt(self, current_token):
         if current_token[1] != "RUN":
@@ -428,6 +391,26 @@ class Parser:
 
         elif key_token == "BOOL_CONVERT":
             return self.parse_type_conversion("bool")
+
+        elif key_token == "IN":
+            self.position += 1
+            if self.position >= len(self.token) or self.token[self.position][1] != "LPAREN":
+                raise SyntaxError(f"Syntax Error: Expected '(' after 'in'")
+            self.position += 1
+
+            next_token = self.token[self.position]
+            if next_token[1] == "RPAREN":
+                self.position += 1
+                return "input()"
+            elif next_token[1] == "STRING":
+                prompt = f'"{next_token[0]}"'
+                self.position += 1
+                if self.position >= len(self.token) or self.token[self.position][1] != "RPAREN":
+                    raise SyntaxError(f"Syntax Error: Expected ')' after prompt string in 'in()'")
+                self.position += 1
+                return f"input({prompt})"
+            else:
+                raise SyntaxError(f"Syntax Error: Expected ')' or prompt string in 'in()', got '{next_token[0]}'")
 
         elif key_token == "IDENTIFIER":
             if self.position + 1 < len(self.token) and self.token[self.position + 1][1] == "LPAREN":
