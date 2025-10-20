@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.0] - 2025-10-18
+## [1.0.0] - 2024-10-18
 
 ### Initial Release
 
@@ -113,11 +113,6 @@ Potential features for future versions:
 
 ---
 
-## [Unreleased]
-
-No unreleased changes yet.
-
----
 
 **Note**: Version numbers follow [Semantic Versioning](https://semver.org/):
 - **MAJOR** version for incompatible changes

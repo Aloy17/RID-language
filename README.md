@@ -126,7 +126,7 @@ out(bool(one))   ~ Prints: True ~
 
 ~ Useful with user input ~
 Let user_input = ""
-in user_input("Enter a number: ")
+user_input = in("Enter a number: ")
 Let squared = num(user_input) * num(user_input)
 out("Result: ")
 out(squared)
@@ -286,6 +286,7 @@ RID-language/
 ├── language_spec.md   # Formal grammar specification
 ├── LICENSE            # MIT License
 ├── README.md          # This file
+├── test_lexer_parser.py  # Test suite for validation
 └── examples/          # Example RID programs
     ├── README.md
     ├── hello_world.rid
@@ -295,7 +296,8 @@ RID-language/
     ├── functions.rid
     ├── fibonacci.rid
     ├── factorial.rid
-    └── guess_the_number.rid
+    ├── guess_the_number.rid
+    └── type_conversion_test.rid
 ```
 
 ## Documentation

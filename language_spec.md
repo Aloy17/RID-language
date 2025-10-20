@@ -26,6 +26,7 @@ RID is a dynamically-typed, imperative programming language with Hindi-inspired 
 - Variables (with numbers in identifiers)
 - Arithmetic and comparison operations
 - String operations
+- Type conversion functions (num, dec, word, bool)
 - Control flow (conditionals and loops)
 - Functions with recursion
 - Comments
@@ -745,9 +746,8 @@ Current limitations (may be addressed in future versions):
 1. **No arrays/lists** - Cannot store collections
 2. **No logical operators** - No `and`, `or`, `not`
 3. **No break/continue** - Cannot exit loops early
-4. **Input always strings** - No automatic type conversion
-5. **No multiline strings** - Strings must be on one line
-6. **No import system** - Cannot split code across files
+4. **No multiline strings** - Strings must be on one line
+5. **No import system** - Cannot split code across files
 
 ---
 
@@ -770,7 +770,10 @@ expression     → additive
 additive       → multiplicative (("+"|"-") multiplicative)*
 multiplicative → unary (("*"|"/"|"%") unary)*
 unary          → "-" unary | primary
-primary        → NUMBER | STRING | IDENTIFIER | "(" expression ")" | func_call
+primary        → NUMBER | STRING | IDENTIFIER | "(" expression ")" 
+               | func_call | type_conversion
+
+type_conversion → ("num"|"dec"|"word"|"bool") "(" expression ")"
 
 condition      → expression ("=="|"!="|"<"|">"|"<="|">=") expression
 
