@@ -55,51 +55,61 @@ def get_keyword_token(word):
 def lex(words):
     position = 0
     tokens = []
+    line_number = 1
 
     while position < len(words):
         char = words[position]
 
-        if char.isspace():
+        if char == '\n':
+            line_number += 1
+            position += 1
+
+        elif char.isspace():
             position += 1
 
         elif char in DELIMITERS:
-            tokens.append((char, DELIMITERS[char]))
+            tokens.append((char, DELIMITERS[char], line_number))
             position += 1
 
         elif char in OPERATORS:
             if position + 1 < len(words):
                 two_char = char + words[position + 1]
                 if two_char in OPERATORS:
-                    tokens.append((two_char, OPERATORS[two_char]))
+                    tokens.append((two_char, OPERATORS[two_char], line_number))
                     position += 2
                     continue
 
-            tokens.append((char, OPERATORS[char]))
+            tokens.append((char, OPERATORS[char], line_number))
             position += 1
 
         elif char.isalpha() or char == "_":
             current = ""
+            start_line = line_number
             while position < len(words) and (words[position].isalnum() or words[position] == "_"):
                 current += words[position]
                 position += 1
 
             if current in KEYWORDS:
-                tokens.append((current, KEYWORDS[current]))
+                tokens.append((current, KEYWORDS[current], start_line))
             else:
-                tokens.append((current, "IDENTIFIER"))
+                tokens.append((current, "IDENTIFIER", start_line))
 
         elif char == '"':
+            start_line = line_number
             position += 1
             current = ""
             while position < len(words) and words[position] != '"':
+                if words[position] == '\n':
+                    line_number += 1
                 current += words[position]
                 position += 1
             position += 1
-            tokens.append((current, "STRING"))
+            tokens.append((current, "STRING", start_line))
 
         elif char.isdigit():
             current = ""
             dot_count = 0
+            start_line = line_number
 
             while position < len(words) and (words[position].isdigit() or words[position] == "."):
                 if words[position] == ".":
@@ -109,11 +119,13 @@ def lex(words):
                 current += words[position]
                 position += 1
 
-            tokens.append((current, "NUMBER"))
+            tokens.append((current, "NUMBER", start_line))
 
         elif char == "~":
             position += 1
             while position < len(words) and words[position] != "~":
+                if words[position] == '\n':
+                    line_number += 1
                 position += 1
             position += 1
 
