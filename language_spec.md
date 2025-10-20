@@ -6,6 +6,8 @@
 
 This document provides the complete formal grammar specification for the RID programming language.
 
+> **💡 Tip:** The best way to write and run RID code is using [**RIDLEY IDE**](https://github.com/Aloy17/RIDLEY) - a dedicated desktop IDE with syntax highlighting, built-in tutorials, and an intuitive interface. **No installation required** - it's a standalone application with the RID interpreter built right in!
+
 ---
 
 ## Table of Contents

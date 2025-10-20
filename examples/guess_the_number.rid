@@ -12,16 +12,14 @@ guess = in("Enter your guess: ")
 attempts = attempts + 1
 
 agar(guess == secret) {
-    out("Congratulations! You guessed it!")
-    out("It took you ")
-    out(attempts)
-    out(" attempt(s)")
+    out("Congratulations! You guessed it in " + word(attempts) + " attempt(s)!")
+    line
 }
 ya_fir(guess < secret) {
-    out("Too low! The answer was ")
-    out(secret)
+    out("Too low! The answer was " + word(secret))
+    line
 }
 warna {
-    out("Too high! The answer was ")
-    out(secret)
+    out("Too high! The answer was " + word(secret))
+    line
 }

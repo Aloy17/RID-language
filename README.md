@@ -22,34 +22,52 @@ RID is a custom programming language that makes coding more accessible by using 
 
 ## Installation
 
-**Requirements:** Python 3.7 or higher
+Download **RIDLEY IDE** from [https://github.com/Aloy17/RIDLEY](https://github.com/Aloy17/RIDLEY)
 
-1. Clone this repository:
-```bash
-git clone https://github.com/yourusername/RID-language.git
-cd RID-language
-```
+No additional installation needed - RIDLEY is a standalone application with everything built-in.
 
-2. That's it! No dependencies needed.
+## Using RIDLEY IDE
+
+**RIDLEY IDE** is the dedicated desktop IDE for writing and running RID programs.
+
+**✨ No Installation Required!** RIDLEY IDE is a **standalone application** - just download and run. No Python, no dependencies, no setup. Everything you need is built right in.
+
+**Features:**
+- Syntax highlighting for RID code
+- Built-in code editor with line numbers
+- Run RID programs directly from the IDE
+- Interactive tutorials and lessons to learn RID
+- Clean, modern interface with Quiet Light and Dark Modern themes
+- File management for RID projects
+- RID interpreter built-in - no external tools needed
+
+**Get RIDLEY IDE:**
+- Download from: [https://github.com/Aloy17/RIDLEY](https://github.com/Aloy17/RIDLEY)
+- **Available for Windows** (macOS and Linux support coming soon)
+- Completely portable and ready to use
+
+## Usage
+
+**To run RID programs, use RIDLEY IDE:**
+
+1. Download and open RIDLEY IDE
+2. Create a new `.rid` file or open an existing one
+3. Write your RID code
+4. Click the Run button to execute your program
+
+**That's it!** RIDLEY handles everything - editing, running, and debugging your RID code.
 
 ## Quick Example
 
-Create a file `hello.rid`:
+Create a new file in RIDLEY IDE and type:
 
 ```rid
 Let name = "World"
-out("Hello, ")
-out(name)
+out("Hello, " + name)
 line
 ```
 
-Run it:
-
-```bash
-python main.py hello.rid
-```
-
-Output:
+Click the Run button in RIDLEY IDE to see the output:
 ```
 Hello, World!
 ```
@@ -69,16 +87,20 @@ x = 20              ~ Reassigning ~
 out("Hello!")       ~ Prints without newline ~
 out(x)
 line                ~ Prints a newline ~
+
+~ You can also concatenate strings ~
+out("Hello, " + name)
+line
 ```
 
-The `out()` function prints without adding a newline. Use `line` to print a newline when needed.
+The `out()` function prints without adding a newline. Use `line` to print a newline when needed. You can concatenate strings and variables using the `+` operator.
 
 ### Input
 ```rid
 Let name = ""
 name = in("Enter your name: ")
-out("Hello, ")
-out(name)
+out("Hello, " + name)
+line
 ```
 
 ### Arithmetic
@@ -99,6 +121,13 @@ Let first = "Hello"
 Let second = "World"
 Let greeting = first + " " + second  ~ String concatenation ~
 out(greeting)  ~ Prints: Hello World ~
+
+~ You can mix strings and variables ~
+Let age = 25
+out("I am " + word(age) + " years old")
+line
+
+~ Note: Use word() to convert numbers to strings for concatenation ~
 ```
 
 ### Type Conversions
@@ -128,8 +157,7 @@ out(bool(one))   ~ Prints: True ~
 Let user_input = ""
 user_input = in("Enter a number: ")
 Let squared = num(user_input) * num(user_input)
-out("Result: ")
-out(squared)
+out("Result: " + word(squared))
 line
 ```
 
@@ -199,26 +227,6 @@ out(result)  ~ Prints: 120 ~
 Let x = 10  ~ Inline comments work too ~
 ```
 
-## Usage
-
-```bash
-python main.py <input_file.rid> [output_file.py]
-```
-
-**Examples:**
-
-Run a RID file:
-```bash
-python main.py myprogram.rid
-```
-
-Specify output file name:
-```bash
-python main.py myprogram.rid output.py
-```
-
-The transpiled Python code is saved to the output file and executed immediately.
-
 ## Language Keywords
 
 | Keyword | Meaning | Example |
@@ -259,7 +267,7 @@ The transpiled Python code is saved to the output file and executed immediately.
 
 ## Example Programs
 
-Check the `examples/` folder for complete working programs:
+Check the `examples/` folder in this repository for complete working programs:
 
 - **hello_world.rid** - Basic output
 - **calculator.rid** - Arithmetic operations
@@ -271,10 +279,7 @@ Check the `examples/` folder for complete working programs:
 - **guess_the_number.rid** - Interactive guessing game
 - **type_conversion_test.rid** - Type conversion examples
 
-Run any example:
-```bash
-python main.py examples/hello_world.rid
-```
+Open any example in RIDLEY IDE and click Run to see it in action!
 
 ## Project Structure
 
@@ -282,11 +287,10 @@ python main.py examples/hello_world.rid
 RID-language/
 ├── lexer.py           # Tokenizes RID code into tokens
 ├── parser.py          # Parses tokens and transpiles to Python
-├── main.py            # Entry point - runs the transpiler
+├── main.py            # Backend transpiler (used by RIDLEY IDE)
 ├── language_spec.md   # Formal grammar specification
 ├── LICENSE            # MIT License
 ├── README.md          # This file
-├── test_lexer_parser.py  # Test suite for validation
 └── examples/          # Example RID programs
     ├── README.md
     ├── hello_world.rid
@@ -300,6 +304,8 @@ RID-language/
     └── type_conversion_test.rid
 ```
 
+**Note:** The Python files in this repository are the backend transpiler used by RIDLEY IDE. To run RID programs, use RIDLEY IDE.
+
 ## Documentation
 
 - **[Language Specification](language_spec.md)** - Complete formal grammar with examples
@@ -308,12 +314,14 @@ RID-language/
 
 ## How It Works
 
-1. **Lexer** (`lexer.py`) - Converts RID source code into tokens
-2. **Parser** (`parser.py`) - Parses tokens, validates syntax, and transpiles to Python
-3. **Execution** (`main.py`) - Runs the generated Python code
+1. **Write Code** in RIDLEY IDE's editor
+2. **Click Run** to execute
+3. **Lexer** (`lexer.py`) - Converts RID source code into tokens
+4. **Parser** (`parser.py`) - Parses tokens, validates syntax, and transpiles to Python
+5. **Execution** - Runs the generated Python code and displays output
 
 ```
-RID Code → Lexer → Tokens → Parser → Python Code → Execute
+RID Code (in RIDLEY) → Lexer → Tokens → Parser → Python Code → Execute → Output
 ```
 
 ## Known Limitations
