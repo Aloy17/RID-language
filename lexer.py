@@ -11,7 +11,11 @@ KEYWORDS = {
     "give": "RETURN",
     "True": "BOOL",
     "False": "BOOL",
-    "line": "NEWLINE"
+    "line": "NEWLINE",
+    "num": "NUM_CONVERT",
+    "dec": "DEC_CONVERT",
+    "word": "WORD_CONVERT",
+    "bool": "BOOL_CONVERT"
 }
 
 OPERATORS = {
