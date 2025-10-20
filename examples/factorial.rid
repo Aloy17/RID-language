@@ -12,11 +12,11 @@ func factorial(n) {
     give result
 }
 
-Let num = 5
-Let result = factorial(num)
+Let number1 = 5
+Let result = factorial(number1)
 
 out("Factorial of ")
-out(num)
+out(number1)
 out(" is ")
 out(result)
 

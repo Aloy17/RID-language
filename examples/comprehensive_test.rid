@@ -354,8 +354,8 @@ line
 out("--- Practical Example: Even/Odd Numbers 1-10 ---")
 line
 
-func isEven(num) {
-    Let remainder = num % 2
+func isEven(number) {
+    Let remainder = number % 2
     agar(remainder == 0) {
         give True
     }
