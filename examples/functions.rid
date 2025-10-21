@@ -35,20 +35,21 @@ func max(a, b) {
 }
 
 out("Function Examples:")
-out("")
+line
+line
 
 Let sum = add(10, 5)
-out("10 + 5 = ")
-out(sum)
+out("10 + 5 = " + word(sum))
+line
 
 Let product = multiply(4, 7)
-out("4 * 7 = ")
-out(product)
+out("4 * 7 = " + word(product))
+line
 
 Let pow = power(2, 3)
-out("2 ^ 3 = ")
-out(pow)
+out("2 ^ 3 = " + word(pow))
+line
 
 Let maximum = max(15, 23)
-out("Max of 15 and 23 = ")
-out(maximum)
+out("Max of 15 and 23 = " + word(maximum))
+line

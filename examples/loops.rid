@@ -2,24 +2,31 @@
 ~ Demonstrates Run and Run while ~
 
 out("Fixed-count loop example:")
+line
 out("Printing 'Hello' 5 times:")
+line
 
 Run(5) {
     out("Hello!")
+    line
 }
 
-out("")
+line
 out("While loop example:")
+line
 out("Counting from 1 to 5:")
+line
 
 Let counter = 1
 Run while(counter <= 5) {
-    out(counter)
+    out(word(counter))
+    line
     counter = counter + 1
 }
 
-out("")
+line
 out("Sum of numbers 1 to 10:")
+line
 
 Let sum = 0
 Let i = 1
@@ -29,5 +36,5 @@ Run while(i <= 10) {
     i = i + 1
 }
 
-out("Sum = ")
-out(sum)
+out("Sum = " + word(sum))
+line

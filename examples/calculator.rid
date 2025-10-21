@@ -4,23 +4,23 @@
 Let a = 10
 Let b = 3
 
-out("Number 1: ")
-out(a)
-out("Number 2: ")
-out(b)
-out("")
+out("Number 1: " + word(a))
+line
+out("Number 2: " + word(b))
+line
+line
 
-out("Addition: ")
-out(a + b)
+out("Addition: " + word(a + b))
+line
 
-out("Subtraction: ")
-out(a - b)
+out("Subtraction: " + word(a - b))
+line
 
-out("Multiplication: ")
-out(a * b)
+out("Multiplication: " + word(a * b))
+line
 
-out("Division: ")
-out(a / b)
+out("Division: " + word(a / b))
+line
 
-out("Modulo: ")
-out(a % b)
+out("Modulo: " + word(a % b))
+line

@@ -2,13 +2,16 @@
 ~ Try to guess the secret number! ~
 
 Let secret = 42
-Let guess = ""
+Let guess = 0
 Let attempts = 0
 
 out("Welcome to the Guessing Game!")
+line
 out("I'm thinking of a number between 1 and 100")
+line
 
-guess = in("Enter your guess: ")
+Let guessInput = in("Enter your guess: ")
+guess = num(guessInput)
 attempts = attempts + 1
 
 agar(guess == secret) {

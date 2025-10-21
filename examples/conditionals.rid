@@ -4,37 +4,47 @@
 Let age = 20
 
 out("Age Grade System:")
+line
 
 agar(age >= 18) {
     out("You are an adult")
+    line
 }
 ya_fir(age >= 13) {
     out("You are a teenager")
+    line
 }
 warna {
     out("You are a child")
+    line
 }
 
 ~ Grade calculator ~
 Let score = 85
 
-out("")
+line
 out("Grade Calculator:")
-out("Your score: ")
-out(score)
+line
+out("Your score: " + word(score))
+line
 
 agar(score >= 90) {
     out("Grade: A - Excellent!")
+    line
 }
 ya_fir(score >= 80) {
     out("Grade: B - Good job!")
+    line
 }
 ya_fir(score >= 70) {
     out("Grade: C - Satisfactory")
+    line
 }
 ya_fir(score >= 60) {
     out("Grade: D - Needs improvement")
+    line
 }
 warna {
     out("Grade: F - Failed")
+    line
 }

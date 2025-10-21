@@ -15,25 +15,19 @@ func factorial(n) {
 Let number1 = 5
 Let result = factorial(number1)
 
-out("Factorial of ")
-out(number1)
-out(" is ")
-out(result)
+out("Factorial of " + word(number1) + " is " + word(result))
+line
 
 ~ Calculate another ~
-Let number = 7
-Let answer = factorial(number)
+Let number2 = 7
+Let answer = factorial(number2)
 
-out("Factorial of ")
-out(number)
-out(" is ")
-out(answer)
+out("Factorial of " + word(number2) + " is " + word(answer))
+line
 
 ~ One more example ~
 Let value = 10
 Let output = factorial(value)
 
-out("Factorial of ")
-out(value)
-out(" is ")
-out(output)
+out("Factorial of " + word(value) + " is " + word(output))
+line

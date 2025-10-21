@@ -6,9 +6,11 @@ Let b = 1
 Let count = 0
 
 out("Fibonacci Sequence:")
+line
 
 Run while(count < 10) {
-    out(a)
+    out(word(a))
+    line
 
     Let temp = a + b
     a = b

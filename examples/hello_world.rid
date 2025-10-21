@@ -2,4 +2,6 @@
 ~ This is the simplest RID program ~
 
 out("Hello, World!")
+line
 out("Welcome to RID Programming Language!")
+line
