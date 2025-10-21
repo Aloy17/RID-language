@@ -291,35 +291,8 @@ class Parser:
         return f"{lhs} {op} {rhs}"
 
     def func_call(self, current_token):
-        func_name = current_token[0]
-
-        if func_name not in self.functions:
-            raise NameError(self.error(f"Function '{func_name}' is not defined", "Name Error"))
-
-        self.position += 1
-
-        if self.position >= len(self.token) or self.token[self.position][1] != "LPAREN":
-            raise SyntaxError(
-                self.error(f"Expected '(' after function name '{func_name}', got '{self.token[self.position][0]}'"))
-        self.position += 1
-
-        args = []
-
-        while self.position < len(self.token) and self.token[self.position][1] != "RPAREN":
-            arg_expr = self.expression()
-            args.append(arg_expr)
-
-            if self.position < len(self.token) and self.token[self.position][1] == "COMMA":
-                self.position += 1
-            elif self.position < len(self.token) and self.token[self.position][1] != "RPAREN":
-                raise SyntaxError(
-                    self.error(f"Expected ',' or ')' in function call '{func_name}', got '{self.token[self.position][0]}'"))
-
-        if self.position >= len(self.token) or self.token[self.position][1] != "RPAREN":
-            raise SyntaxError(self.error(f"Expected ')' to close function call '{func_name}'"))
-        self.position += 1
-
-        call_str = f"{func_name}({', '.join(args)})"
+        """Statement-level function call"""
+        call_str = self.parse_function_call()
         self.output.append(call_str)
 
     def return_stmt(self, current_token):
