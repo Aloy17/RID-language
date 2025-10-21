@@ -99,8 +99,7 @@ class Parser:
             raise SyntaxError(
                 self.error(f"Expected ')' to close 'out' statement, got '{self.token[self.position][0]}'"))
         self.position += 1
-        # Wrap with str() for automatic type conversion
-        self.output.append(f"print(str({value}), end='')")
+        self.output.append(f"print({value}, end='')")
 
     def newline_stmt(self, current_token):
         self.position += 1
@@ -318,7 +317,11 @@ class Parser:
             op = self.token[self.position][0]
             self.position += 1
             right = self.parse_multiplicative()
-            left = f"{left} {op} {right}"
+            if op == "+":
+                # Smart concatenation: convert to string if either operand is a string
+                left = f"({left} + {right} if isinstance({left}, (int, float)) and isinstance({right}, (int, float)) else str({left}) + str({right}))"
+            else:
+                left = f"{left} {op} {right}"
 
         return left
 
