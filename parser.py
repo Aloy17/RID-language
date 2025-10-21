@@ -99,7 +99,8 @@ class Parser:
             raise SyntaxError(
                 self.error(f"Expected ')' to close 'out' statement, got '{self.token[self.position][0]}'"))
         self.position += 1
-        self.output.append(f"print({value}, end='')")
+        # Wrap with str() for automatic type conversion
+        self.output.append(f"print(str({value}), end='')")
 
     def newline_stmt(self, current_token):
         self.position += 1
